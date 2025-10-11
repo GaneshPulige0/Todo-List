@@ -91,3 +91,7 @@
 .delete-icon-container {
     margin-top:3px;
 }
+
+.checked {
+    text-decoration: line-through;
+}

@@ -13,11 +13,19 @@ let todoList = [{
         uniqueNo: 3
     }
 ];
-
+function onCheckBox(checkboxid,labelId){
+    let labelElement = document.getElementById(labelId)
+    labelElement.classList.toggle("checked")
+}
 
 
 
 function createlabelelement(todoitem){
+    // assigning id's
+    let checkboxid = "checkboxid"  + todoitem.uniqueNo 
+    let labelId = "labelId" + todoitem.uniqueNo
+// --------------------------------------------------------
+
     // creating list item. adding to todoItemsContainer
     let todoElement = document.createElement("li")
     todoElement.classList.add("todo-items-container","d-flex","flex-row")
@@ -28,9 +36,13 @@ function createlabelelement(todoitem){
     // creating checkbox and adding to todoElement
     let inputElement = document.createElement("input")
     inputElement.type = "Checkbox"
-    inputElement.id = todoitem.uniqueNo
+    inputElement.id = checkboxid
     inputElement.classList.add("checkbox-input")
     todoElement.appendChild(inputElement)
+
+    inputElement.onclick = function(){
+        onCheckBox(checkboxid,labelId);
+    }
     // /----------------------------------------------------------------
 
 
@@ -42,10 +54,11 @@ function createlabelelement(todoitem){
     // creating a label element adding to labelelementcontainer
     labelElement = document.createElement("label")
     labelElement.textContent = todoitem.text
-    labelElement.setAttribute("for",todoitem.uniqueNo)
+    labelElement.setAttribute("for",checkboxid)
     labelElement.classList.add("checkbox-label")
     labelElementContainer.appendChild(labelElement)
-
+    labelElement.id = labelId
+    
 
 
     // creating a div for deleting icon. and append to labelElement
