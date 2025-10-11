@@ -1,35 +1,33 @@
 let todoItemsContainer = document.getElementById("todoItemsContainer");
+let todoListcounter = 0
 
-let todoList = [{
-        text: "Learn HTML",
-        uniqueNo: 1
-    },
-    {
-        text: "Learn CSS",
-        uniqueNo: 2
-    },
-    {
-        text: "Learn JavaScript",
-        uniqueNo: 3
-    }
-];
+
+
 function onCheckBox(checkboxid,labelId){
     let labelElement = document.getElementById(labelId)
-    labelElement.classList.toggle("checked")
+    labelElement.classList.toggle("checked") 
 }
 
+function onDeleteButton(todoElementid){
+    let todoElement = document.getElementById(todoElementid)
+    let todoItemsContainer = document.getElementById("todoItemsContainer");
+    todoItemsContainer.removeChild(todoElement)
+}
 
 
 function createlabelelement(todoitem){
     // assigning id's
+    let todoElementid = "todoElement" + todoitem.uniqueNo
     let checkboxid = "checkboxid"  + todoitem.uniqueNo 
     let labelId = "labelId" + todoitem.uniqueNo
+    let deleteid = "deleteid" + todoitem.uniqueNo
 // --------------------------------------------------------
 
     // creating list item. adding to todoItemsContainer
     let todoElement = document.createElement("li")
     todoElement.classList.add("todo-items-container","d-flex","flex-row")
     todoItemsContainer.appendChild(todoElement)
+    todoElement.id = todoElementid
     // -----------------------------------------------------------------------
 
 
@@ -41,7 +39,7 @@ function createlabelelement(todoitem){
     todoElement.appendChild(inputElement)
 
     inputElement.onclick = function(){
-        onCheckBox(checkboxid,labelId);
+        onCheckBox(checkboxid,labelId,deleteid);
     }
     // /----------------------------------------------------------------
 
@@ -61,18 +59,30 @@ function createlabelelement(todoitem){
     
 
 
-    // creating a div for deleting icon. and append to labelElement
+    // creating a div for deleting icon. and append to labelElementContainer
     let deleteIconContainer = document.createElement("div") 
     deleteIconContainer.classList.add("delete-icon-container","d-flex","flex-row")
-    labelElement.appendChild(deleteIconContainer)
+    labelElementContainer.appendChild(deleteIconContainer)
 
 
     // creating a icon and added to deleteIconContainer
     let iconElement = document.createElement("i");
     iconElement.classList.add("far", "fa-trash-alt", "delete-icon")
+    iconElement.id = deleteid
     deleteIconContainer.appendChild(iconElement)
+    iconElement.onclick = function(){
+        onDeleteButton(todoElementid)
+    }
 }
 
-for (let item of todoList) {
-    createlabelelement(item)
+
+function addButton(todoitem){
+    todoListcounter += 1
+    userInput = document.getElementById("userInputValue")
+    if (userInput.value === ""){
+        alert("Enter Valid Input")
+        return;
+    }
+    createlabelelement({text:userInput.value,uniqueNo:todoListcounter})
+    userInput.value = ""
 }
