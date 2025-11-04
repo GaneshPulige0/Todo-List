@@ -1,7 +1,27 @@
 let todoItemsContainer = document.getElementById("todoItemsContainer");
 let todoListcounter = 0
 
+//fetching data from localStorage. if it's a null it's return '[]'
+// .if there is any data it's give parse value
+function getTodoListFromLocalStorage(){
+    let stringifiedTodoList = localStorage.getItem("todoList")
+    let parsedTodoList = JSON.parse(stringifiedTodoList)
+    if (parsedTodoList === null){
+        return [];
+    }
+    else{
+        return parsedTodoList
+    }
+}
 
+// calling getTodoListFromLocalStorage
+let todoList = getTodoListFromLocalStorage();
+
+// save to the localstorage
+function saveButton(){
+    localStorage.setItem("todoList",JSON.stringify(todoList));
+}
+    
 
 function onCheckBox(checkboxid,labelId){
     let labelElement = document.getElementById(labelId)
@@ -74,15 +94,21 @@ function createlabelelement(todoitem){
         onDeleteButton(todoElementid)
     }
 }
+for (const todoTask of todoList) {
+    createlabelelement(todoTask)
+    
+}
 
-
-function addButton(todoitem){
+function addButton(){
     todoListcounter += 1
     userInput = document.getElementById("userInputValue")
     if (userInput.value === ""){
         alert("Enter Valid Input")
         return;
     }
-    createlabelelement({text:userInput.value,uniqueNo:todoListcounter})
+    let newtask = {text:userInput.value,uniqueNo:todoListcounter}
+    todoList.push(newtask) 
+    console.log(todoList)
+    createlabelelement(newtask)
     userInput.value = ""
 }
