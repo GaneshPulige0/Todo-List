@@ -117,7 +117,6 @@ function addButton(){
     }
     let newtask = {text:userInput.value,uniqueNo:todoListcounter}
     todoList.push(newtask) 
-    console.log(todoList)
     createlabelelement(newtask)
     userInput.value = ""
 }
