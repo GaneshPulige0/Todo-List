@@ -40,7 +40,7 @@ function onDeleteButton(todoElementid){
             return false
         }
     }) 
-    todoList.splice(itemdelete,1)
+    todoList.splice(itemdeleteIndex,1)
 }
 
 
