@@ -31,7 +31,7 @@ function onCheckBox(checkboxid,labelId){
 function onDeleteButton(todoElementid){
     let todoElement = document.getElementById(todoElementid)
     todoItemsContainer.removeChild(todoElement)
-    itemdelete = todoList.findIndex(function(eachItem){
+    itemdeleteIndex = todoList.findIndex(function(eachItem){
         let todoElementId = "todoElement" + eachItem.uniqueNo
         if (todoElementId === todoElementid){
             return true
